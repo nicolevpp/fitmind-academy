@@ -1,43 +1,98 @@
-import { useEffect, useState} from "react";
+import { useState} from "react";
 import { exerciseOptions, fetchData } from "../utils/fetchData";
-import HorizontalScrollbar from "../components/HorizontalScrollbar";
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 
 
-export default function SearchExercises({ setExercises, bodyPart, setBodyPart}) {
+export default function SearchExercises({ setExercises, setBodyPart, bodyPart}) {
 
-    const [search, setSearch] = useState('')
-    const [bodyParts, setBodyParts] = useState([])
+    
+    const [search, setSearch] = useState('');
+    
 
-    useEffect(() => {
-        async function fetchExercisesData () {
-            const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
 
-            setBodyParts(['all', ...bodyPartsData])
-        }
+   
+    // useEffect(() => {
+    //     const fetchExercisesData = async () => {
+    //       const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
+    
+    //       setBodyPart(['all', ...bodyPartsData]);
+    //     };
+    
+    //     fetchExercisesData();
+    //   }, []);
 
-        fetchExercisesData()
-    }, [])
+
+        const handleChangeBodyPart = (e) => {
+      setBodyPart(e.target.value)
+    };   
+
+    
+   
 
     const handleSearch = async () => {
         if (search) {
-            const exercisesData = await fetchData(
-                'https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
-
-                const searchedExercises = exercisesData.filter((exercise) => exercise.name.toLowerCase().includes(search)
-                || exercise.target.toLowerCase().includes(search)
-                || exercise.equipment.toLowerCase().includes(search)
-                || exercise.bodyPart.toLowerCase().includes(search)
-                );
-
-                setSearch('')
-                setExercises(searchedExercises)
+          const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
+    
+          const searchedExercises = exercisesData.filter(
+            (item) => item.name.toLowerCase().includes(search)
+                   || item.target.toLowerCase().includes(search)
+                   || item.equipment.toLowerCase().includes(search)
+                   || item.bodyPart.toLowerCase().includes(search),
+          );
+    
+          window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
+    
+          setSearch('');
+          setExercises(searchedExercises);
         }
-    }
+      };
 
     return (
         <>
-        <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
+        <Box id="buscar-ejercicios" display="grid" gap="30px" sx={{ gridColumn: "span 2"}}>
+                                <Typography sx={{ gridColumn: "span 4"}} textAlign="center" variant="h4">Buscar ejercicios</Typography>
+                               
+                                    <FormControl variant="filled" fullWidth >
+                                    <InputLabel id="demo-simple-select-label">Parte del cuerpo</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={bodyPart}
+                                        label="Parte del cuerpo"
+                                        onChange={handleChangeBodyPart}
+                                        defaultValue={"all"}
+                                    >
+                                        <MenuItem value={"all"}>All</MenuItem>
+                                        <MenuItem value={"back"}>Back</MenuItem>
+                                        <MenuItem value={"cardio"}>Cardio</MenuItem>
+                                        <MenuItem value={"chest"}>Chest</MenuItem>
+                                        <MenuItem value={"lower arms"}>Lower arms</MenuItem>
+                                        <MenuItem value={"lower legs"}>Lower legs</MenuItem>
+                                        <MenuItem value={"neck"}>Neck</MenuItem>
+                                        <MenuItem value={"shoulders"}>Shoulders</MenuItem>
+                                        <MenuItem value={"upper legs"}>Upper legs</MenuItem>
+                                        <MenuItem value={"upper arms"}>Upper arms</MenuItem>
+                                        <MenuItem value={"waist"}>Waist</MenuItem>
+
+                                    </Select>
+                                    </FormControl>
+                                    <FormControl  variant="standard" sx={{ gridColumn: "span 2", display: 'grid'}}>
+                            <InputLabel htmlFor="input-with-icon-adornment" >
+                            Buscar ejercicio por nombre
+                            </InputLabel>
+                            <Input
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value.toLocaleLowerCase())} 
+                            id="input-with-icon-adornment"
+                            />
+                           
+                        </FormControl>
+                        <Button color="primary" onClick={handleSearch}>Buscar</Button>
+    </Box>
+    </>
+    )    }                
+
+        {/* <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
         <Typography fontWeight={700} sx={{
             fontSize: { lg:"44px", xs:"30px"}}} mb="50px" textAlign="center">
             Increibles ejercicios
@@ -81,25 +136,6 @@ export default function SearchExercises({ setExercises, bodyPart, setBodyPart}) 
             bodyPart={bodyPart} setBodyPart={setBodyPart} isBodyParts
             />
         </Box>
-        </Stack>
-
-        {/* <div className=" pt-20  bg-zinc-100">
-            <h1 className="text-center text-4xl font-bold">Crear una rutina</h1>
-
-            <div className="flex justify-center py-8">
-                <input className=" pl-4 rounded-md h-10 w-2/4" type="text" value={search} onChange={(e) => setSearch(e.target.value.toLowerCase())} placeholder="Buscar ejercicios"/>
-                <button className=' w-40 rounded-r h-10 bg-slate-300 cursor-pointer transition-all ease-in-out hover:bg-slate-400' onClick={handleSearch}>Buscar ejercicios</button>
-            </div>
-           
-
-            <div className=" m-auto w-3/4">
-                <p className="text-center">Parte del cuerpo</p>
-                <HorizontalScrollbar data={bodyParts}
-                bodyPart={bodyPart} setBodyPart={setBodyPart}/>
-            </div>
-        </div> */}
-        </>
-    )
-}
-
-
+        </Stack> */}
+        
+      

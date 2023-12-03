@@ -1,9 +1,9 @@
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
-import { tokens } from "../../theme";
-import Header from "../../components/Header";
-import Topbar from "../global/Topbar";
-import SidebarSection from "../global/SidebarSection";
+import { tokens } from "../theme";
+import Header from "../components/Header";
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
 import axios from 'axios'
 import { useEffect, useState } from "react";
 

@@ -7,10 +7,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
 import { Box, List, ListItem, ListItemText, Typography, useTheme} from '@mui/material'
-import Topbar from "../global/Topbar"
-import SidebarSection from "../global/SidebarSection"
-import Header from "../../components/Header"
-import { tokens } from "../../theme";
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
+import Header from "../components/Header"
+import { tokens } from "../theme";
 
 export default function Calendar(){
     const theme = useTheme()

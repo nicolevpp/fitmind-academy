@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar"
 import { Box, IconButton, Typography, useTheme} from '@mui/material'
-import { tokens } from '../../theme'
+import { tokens } from '../theme'
 import { Link } from "react-router-dom"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
@@ -9,7 +9,7 @@ import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
-import ProfileImg from '../../assets/ignacio.jpg'
+import ProfileImg from '../assets/ignacio.jpg'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
@@ -61,6 +61,7 @@ export default function SidebarSection(){
         <Sidebar collapsed={isCollapsed}         
         backgroundColor={colors.primary[400]} 
         rootStyles={{border:"none", height: '100vh'}}
+        breakPoint="xs"
 >
           <Menu iconShape="square">
             {/* LOGO AND MENU ICON */}
@@ -105,7 +106,7 @@ export default function SidebarSection(){
 
                 <Box textAlign="center">
                   <Typography px={1} variant="h3" color={colors.grey[100]} fontWeight="bold" sx={{ m: "5px 0 0 0"}}>Ignacio Acosta</Typography>
-                  <Typography px={1} variant="h5" color={colors.greenAccent[500]}>Entrenador Personal</Typography>
+                  <Typography px={1} variant="h5" color={colors.redAccent[500]}>Entrenador Personal</Typography>
                 </Box>
               </Box>
             )}

@@ -1,12 +1,12 @@
 import { Box, useTheme, Typography } from "@mui/material"
-import Topbar from "../global/Topbar"
-import SidebarSection from "../global/SidebarSection"
-import Header from "../../components/Header"
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
+import Header from "../components/Header"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSumary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { tokens } from "../../theme"
+import { tokens } from "../theme"
 
 export default function FAQ(){
     const theme = useTheme()

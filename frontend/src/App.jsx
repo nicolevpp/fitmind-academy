@@ -13,16 +13,15 @@ import HomeBlock from './routes/HomeBlock';
 import ExerciseDetail from './routes/ExerciseDetail';
 
 // Scenes
-import Dashboard from './scenes/dashboard'
-import Invoices from './scenes/invoices/index'
-import Contacts from './scenes/equipo/index'
-import Bar from './scenes/bar/index'
-import Form from './scenes/form/index'
-import Line from './scenes/line'
-// import Pie from './scenes/pie'
-import FAQ from './scenes/faq'
-// import Geography from './scenes/geography'
-import Calendar from './scenes/calendar/index'
+import Dashboard from './routes/Dashboard'
+import Invoices from './routes/Invoices'
+import Contacts from './routes/Equipo'
+import Bar from './routes/Bar'
+import Form from './routes/Form'
+import Line from './routes/Line'
+import FAQ from './routes/FAQ'
+import Calendar from './routes/Calendar'
+import Routines from './routes/Routines'
 
 
 
@@ -54,6 +53,11 @@ const router = createBrowserRouter([
     path: "/exercise/:id",
     element: <ExerciseDetail/>,
   },
+  {
+    path: "/ver",
+    element: <Routines/>,
+  }
+  ,
   // {
   //   path: "/private",
   //   element:
@@ -106,10 +110,6 @@ const router = createBrowserRouter([
     path: "/bar",
     element: <Bar/>,
   },
-  // {
-  //   path: "/pie",
-  //   element: <Pie/>,
-  // },
   {
     path: "/line",
     element: <Line/>,
@@ -118,10 +118,6 @@ const router = createBrowserRouter([
     path: "/faq",
     element: <FAQ/>,
   },
-  // {
-  //   path: "/geography",
-  //   element: <Geography/>,
-  // },
   {
     path: "/calendar",
     element: <Calendar/>,

@@ -1,4 +1,4 @@
-import Topbar from "../scenes/global/Topbar"
+import Topbar from "../components/Topbar"
 
 export default function Home() {
 

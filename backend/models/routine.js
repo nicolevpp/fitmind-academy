@@ -1,32 +1,31 @@
-// // requerimos la dependencia de mongoose para poder trabajar con mongodb
+// requerimos la dependencia de mongoose para poder trabajar con mongodb
 
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// // Creo la trabla o schema del modelo que tiene las propiedades, se especifica si es string, booleano, numero, ect
+// Creo la trabla o schema del modelo que tiene las propiedades, se especifica si es string, booleano, numero, ect
 
-// const contactSchema = new mongoose.Schema({
-//     contactname: String,
-//     phone: String,
-//     user: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: 'User'
-//     },
-// });
+const routineSchema = new mongoose.Schema({
+    routineName: String,
+    description: String,
+    exercises: [{}]
+});
 
-// // Configuro la respuesta del usuario borrando el id, la version y la contraseña
+// exercises: [],
 
-// contactSchema.set('toJSON', {
-//     transform: (document, returnedObject) => {
-//         returnedObject.id = returnedObject._id.toString();
-//         delete returnedObject._id;
-//         delete returnedObject.__v;
-//     }
-// });
+// Configuro la respuesta del usuario borrando el id, la version y la contraseña
 
-// // Le damos un nombre y lo asignamos a una propiedad
+routineSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString();
+        delete returnedObject._id;
+        delete returnedObject.__v;
+    }
+});
 
-// const Contact = mongoose.model('Contact', contactSchema);
+// Le damos un nombre y lo asignamos a una propiedad
 
-// // Lo exportamos
+const Routine = mongoose.model('Routine', routineSchema);
 
-// module.exports = Contact;
+// Lo exportamos
+
+module.exports = Routine;

@@ -8,6 +8,12 @@ import ExerciseVideos from "../components/ExerciseVideos"
 import SimilarExercises from "../components/SimilarExercises"
 
 
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
+import Header from "../components/Header"
+
+
+
 export default function ExerciseDetail() {
 
     const [ExerciseDetail, setExerciseDetail] = useState({})
@@ -45,12 +51,23 @@ export default function ExerciseDetail() {
     // El dependency array significa que se va a llamar la funcion, cada vez que el elemento seleccionado cambie
 
     return (
-       <Box>
-            <Detail exerciseDetail={ExerciseDetail}/>
-            <ExerciseVideos exerciseVideos={exerciseVideos} name={ExerciseDetail.name}/>
-            <SimilarExercises targetMuscleExercises={targetMuscleExercises}
-            equipmentExercises={equipmentExercises}
-            />
-       </Box>
+        <Box display="flex">
+        <SidebarSection/>
+        <Box m="20px" width="100%">
+            <Topbar/>
+            <Box display="flex" justifyContent="space-between"  flexDirection="column">                
+                <Header  title="CREAR USUARIO" subtitle="Crear un nuevo perfil de usuario"/>
+                <Box>
+                <Detail exerciseDetail={ExerciseDetail}/>
+                <ExerciseVideos exerciseVideos={exerciseVideos} name={ExerciseDetail.name}/>
+                <SimilarExercises targetMuscleExercises={targetMuscleExercises}
+                equipmentExercises={equipmentExercises}
+                />
+                </Box>
+                
+            </Box>
+        </Box>
+    </Box>   
+   
     )
 }

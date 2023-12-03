@@ -199,7 +199,7 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-    const [mode, setMode] = useState("dark");
+    const [mode, setMode] = useState("light");
 
     const colorMode = useMemo(
         () => ({
@@ -217,3 +217,4 @@ export const useMode = () => {
 // We are creating a context to easily access the themes: dark / light
 
 // useMemo is a React Hook that lets you cache the result of a calculation between re-renders.
+

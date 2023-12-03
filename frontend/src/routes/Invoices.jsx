@@ -1,10 +1,10 @@
 import { Box, useTheme, Typography } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid'
-import { tokens } from "../../theme";
-import { mockDataInvoices } from '../../data/mockData'
-import Header from "../../components/Header";
-import Topbar from "../global/Topbar";
-import SidebarSection from "../global/SidebarSection";
+import { tokens } from "../theme";
+import { mockDataInvoices } from '../data/mockData'
+import Header from "../components/Header";
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
 
 export default function Invoices () {
     const theme = useTheme();

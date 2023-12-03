@@ -14,6 +14,8 @@ const loginRouter = require('./controllers/login');
 const { MONGO_URI } = require('./config');
 const refreshRouter = require('./controllers/refresh');
 const { userExtractor } = require('./middleware/auth');
+const routinesRouter = require('./controllers/routines');
+
 
 
 (async() => {
@@ -49,6 +51,8 @@ app.use(express.json());
 app.use('/api/users', usersRouter);
 app.use('/api/refresh', userExtractor, refreshRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/routines', routinesRouter);
+
 // app.use('/api/logout', logoutRouter);
 // app.use('/api/contacts', userExtractor, contactsRouter);
 

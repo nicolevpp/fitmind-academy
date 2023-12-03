@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
     phone: String,
     address: String,
     password: String,
+    admin: {
+        type: Boolean,
+        default: false
+    },
     routines: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Routines'

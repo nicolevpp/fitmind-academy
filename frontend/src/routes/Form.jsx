@@ -1,11 +1,11 @@
 import { Box, Button, Snackbar, TextField } from "@mui/material"
-import Topbar from "../global/Topbar"
-import SidebarSection from "../global/SidebarSection"
-import Header from "../../components/Header"
+import Topbar from "../components/Topbar"
+import SidebarSection from "../components/SidebarSection"
+import Header from "../components/Header"
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from "@mui/material/useMediaQuery"
-import { validPhone, validPassword } from "../../Regex"
+import { validPhone, validPassword } from "../Regex"
 import axios from "axios"
 import { useState } from "react"
 import Alert from '@mui/material/Alert'
@@ -88,11 +88,6 @@ export default function Form(){
                       </Alert>
                     </Snackbar> : <></> }
                     <Formik
-                    // onSubmit={async (values, { resetForm }) => {
-                    //     await handleFormSubmit(values)
-                  
-                    //     resetForm()
-                    //   }}
                     onSubmit={handleFormSubmit}
                     initialValues={initialValues}
                     validationSchema={userSchema}
