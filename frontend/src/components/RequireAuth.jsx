@@ -10,13 +10,13 @@ const RequireAuth = ({ home }) => {
   return (
     <>
       {
-      home
-      ? auth?.userId
-        ? <Navigate to='/private' state={{ from: location }} replace />
-        : <Outlet />
-      : auth?.userId
-          ? <Outlet />
-          : <Navigate to='/' state={{ from: location }} replace />
+        home
+          ? auth?.userId
+            ? <Navigate to="/private" state={{ from: location }} replace />
+            : <Outlet />
+          : auth?.userId
+            ? <Outlet />
+            : <Navigate to="/" state={{ from: location }} replace />
       }
     </>
   );

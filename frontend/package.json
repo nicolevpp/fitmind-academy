@@ -38,6 +38,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-horizontal-scrolling-menu": "^4.1.1",
+    "react-hot-toast": "^2.4.1",
     "react-loader-spinner": "^5.4.5",
     "react-paginate": "^8.2.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
@@ -55,6 +56,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.30",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }

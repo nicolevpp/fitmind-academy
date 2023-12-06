@@ -2,48 +2,46 @@
 import React from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
-import Icon from '../assets/dumbbell.svg'
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 import BodyPart from './BodyPart';
-import ExerciseCard from './ExerciseCard'
+import ExerciseCard from './ExerciseCard';
 
 
 
 function HorizontalScrollbarTest({ data, bodyPart, setBodyPart, isBodyParts }) {
 
   const [selected, setSelected] = React.useState([]);
-  const [position, setPosition] = React.useState(0);
 
   const isItemSelected = (id) => !!selected.find((el) => el === id);
 
   const handleClick =
     (id) =>
-    ({ getItemById, scrollToItem }) => {
-      const itemSelected = isItemSelected(id);
+      () => {
+        const itemSelected = isItemSelected(id);
 
-      setSelected((currentSelected) =>
-        itemSelected
-          ? currentSelected.filter((el) => el !== id)
-          : currentSelected.concat(id)
-      );
-    };
+        setSelected((currentSelected) =>
+          itemSelected
+            ? currentSelected.filter((el) => el !== id)
+            : currentSelected.concat(id)
+        );
+      };
 
   return (
     <ScrollMenu  LeftArrow={LeftArrow} RightArrow={RightArrow}>
       {data.map((item) => (
-                      <Box
-                          key={item.id || item}
-                          itemID={item.id || item}
-                          title={item.id || item}
-                          m="0 40px"
-                          onClick={handleClick(item)}
-                          selected={isItemSelected(item)
-                          }
-                      >
-                        {isBodyParts ? <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
-                        : <ExerciseCard exercise={item} />}
-                      </Box>
-            ))}
+        <Box
+          key={item.id || item}
+          itemID={item.id || item}
+          title={item.id || item}
+          m="0 40px"
+          onClick={handleClick(item)}
+          selected={isItemSelected(item)
+          }
+        >
+          {isBodyParts ? <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
+            : <ExerciseCard exercise={item} />}
+        </Box>
+      ))}
     </ScrollMenu>
   );
 }

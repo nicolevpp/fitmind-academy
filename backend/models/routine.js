@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const routineSchema = new mongoose.Schema({
     routineName: String,
     description: String,
-    exercises: [{}]
+    exercises: []
 });
 
 // exercises: [],
@@ -21,6 +21,7 @@ routineSchema.set('toJSON', {
         delete returnedObject.__v;
     }
 });
+
 
 // Le damos un nombre y lo asignamos a una propiedad
 

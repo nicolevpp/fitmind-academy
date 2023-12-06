@@ -31,10 +31,10 @@ const newRoutine = new Routine({
 });
 
 
-// routinesRouter.get('/', async (request, response) => {
-//   const routine = request.routine;
-//   const routines = await Routine.find();
-//   return response.status(200).json(routines);
-// });
+routinesRouter.get('/', async (request, response) => {
+  const routine = request.routine;
+  const routines = await Routine.find();
+  return response.status(200).json(routines);
+});
 
 module.exports = routinesRouter;
