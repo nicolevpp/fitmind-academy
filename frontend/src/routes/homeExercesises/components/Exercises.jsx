@@ -20,7 +20,7 @@ export default function Exercises({ filteredExercises }){
       {/* <Button variant="contained"  color="secondary" sx={{position:'fixed', zIndex:'50', top: '0', display: ejercicios.length ? 'block' : 'none'}}>Guardar</Button> */}
       <Box id="exercises"  p="20px">
         {/* <Button primary onClick={() => hijoAPadre(ejercicios)}>Clic Hijo</Button> */}
-        <Stack direction="row" sx={{ gap: { lg: '2rem', xs: '2rem' } }} flexWrap="wrap" justifyContent="center">
+        <Stack display="grid" sx={{ gap: { lg: '2rem', xs: '2rem' }, gridTemplateColumns: { xs: '100%', lg: '50% 50%' } }} flexWrap="wrap" justifyContent="center">
           {currentExercises.map((exercise, idx) => (
             <ExerciseCard key={idx} exercise={exercise} />
           ))}

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, IconButton, Typography, useTheme } from '@mui/material';
 import { tokens } from '../theme';
 import { Link } from 'react-router-dom';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -9,9 +9,11 @@ import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import ProfileImg from '../assets/ignacio.jpg';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import useAuth from '../hooks/useAuth';
+import axios from 'axios';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -35,6 +37,27 @@ export default function SidebarSection(){
   const colors = tokens(theme.palette.mode);
   const  [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
+  const [user, setUser ] = useState({});
+
+  const { auth } = useAuth();
+  let isAdmin = auth.isAdmin;
+
+  console.log(user);
+
+
+  useEffect( ()  => {
+    const userId = auth.userId;
+    axios.get(`/api/users/${userId}`, userId ).then((response) => {
+      setUser(response.data);
+    });
+  },[auth]);
+
+
+  function stringAvatar(name) {
+    return {
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  }
 
   return (
     <Box
@@ -95,18 +118,13 @@ export default function SidebarSection(){
           {!isCollapsed && (
             <Box mb="10px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="80px"
-                  height="80px"
-                  src={ProfileImg}
-                  style={{ cursor: 'pointer', borderRadius: '50%' }}
-                />
+                <Avatar sx={{ width: '4rem', height: '4rem' }} {...stringAvatar(`${user.firstName} ${user.lastName}`)} />
               </Box>
 
               <Box textAlign="center">
-                <Typography px={1} variant="h3" color={colors.grey[100]} fontWeight="bold" sx={{ m: '5px 0 0 0' }}>Ignacio Acosta</Typography>
-                <Typography px={1} variant="h5" color={colors.redAccent[500]}>Entrenador Personal</Typography>
+                <Typography px={1} variant="h3" color={colors.grey[100]} fontWeight="bold" sx={{ m: '5px 0 0 0' }}>{user.firstName} {user.lastName}</Typography>
+                {isAdmin? <Typography px={1} variant="h5" color={colors.redAccent[500]}>Entrenador Personal</Typography> : <Typography px={1} variant="h5" color={colors.redAccent[500]}>Usuario de Fitmind</Typography>}
+
               </Box>
             </Box>
           )}
@@ -114,7 +132,7 @@ export default function SidebarSection(){
           <Box paddingLeft={isCollapsed ? undefined : '10%'}>
             <Item
               title="Dashboard"
-              to="/dashboard"
+              to="/"
               icon={<HomeOutlinedIcon/>}
               selected={selected}
               setSelected={setSelected}

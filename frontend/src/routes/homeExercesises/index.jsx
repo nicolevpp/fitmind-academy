@@ -1,11 +1,12 @@
 
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import SidebarSection from '../../components/SidebarSection.jsx';
 import Topbar from '../../components/Topbar.jsx';
 import Header from '../../components/Header.jsx';
 import ShowExercises from './ShowExercises.jsx';
 import { RoutineProvider } from './hooks/useRoutine.jsx';
 import CreateRoutine from './CreateRoutine.jsx';
+import { Link } from 'react-router-dom';
 
 export default function HomeExercises(){
   return (
@@ -15,7 +16,12 @@ export default function HomeExercises(){
         <Box m="20px" width="100%">
           <Topbar/>
           <Box display="flex" justifyContent="space-between"  flexDirection="column">
-            <Header  title="CREAR RUTINA" subtitle="Crear una nueva rutina de ejercicios"/>
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" px="2rem">
+              <Header  title="RUTINAS" subtitle="Gestionar y asignar rutinas"/>
+              <Link to={'/rutinas/'}>
+                <Button variant="contained" color="secondary" sx={{ height: '80%' }}>Ver todas las rutinas</Button>
+              </Link>
+            </Box>
             <Box display="flex" gap="2rem" flexDirection="row-reverse">
               <ShowExercises/>
               <CreateRoutine/>

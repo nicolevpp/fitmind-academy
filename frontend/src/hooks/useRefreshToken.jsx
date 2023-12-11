@@ -9,7 +9,11 @@ const useRefreshToken = () => {
       withCredentials: true
     });
     setAuth(prev => {
-      return { ...prev, accessToken: data.accessToken, userId: data.userId };
+      console.log(JSON.stringify(prev));
+      console.log(data.accessToken);
+      return { ...prev,
+        isAdmin: data.isAdmin,
+        accessToken: data.accessToken, userId: data.userId };
     });
     return data.accessToken;
   };

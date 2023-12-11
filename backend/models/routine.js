@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // Creo la trabla o schema del modelo que tiene las propiedades, se especifica si es string, booleano, numero, ect
 
 const routineSchema = new mongoose.Schema({
-    routineName: String,
+    name: String,
     description: String,
     exercises: []
 });

@@ -10,7 +10,7 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 // const contactsRouter = require('./controllers/contacts');
 // const { userExtractor } = require('./middleware/auth');
-// const logoutRouter = require('./controllers/logout');
+const logoutRouter = require('./controllers/logout');
 const { MONGO_URI } = require('./config');
 const refreshRouter = require('./controllers/refresh');
 const { userExtractor } = require('./middleware/auth');
@@ -52,8 +52,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/refresh', userExtractor, refreshRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/routines', routinesRouter);
-
-// app.use('/api/logout', logoutRouter);
+app.use('/api/logout', logoutRouter);
 // app.use('/api/contacts', userExtractor, contactsRouter);
 
 

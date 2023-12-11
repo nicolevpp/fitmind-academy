@@ -6,8 +6,7 @@ const jwt = require('jsonwebtoken');
 refreshRouter.get('/', async (request, response) => {
     const { user } = request;
     const accessToken = request.cookies?.accessToken;
-    console.log(user);
-  return response.status(200).json({ accessToken, userId: user.id });
+  return response.status(200).json({ isAdmin: user.admin, accessToken, userId: user.id });
 });
 
 module.exports = refreshRouter;

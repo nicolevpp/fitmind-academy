@@ -8,17 +8,15 @@ loginRouter.post('/', async (request, response) => {
     const userExist = await User.findOne({ email });
     
     if (!userExist) {
-        return response.status(400).json({error:'Incorrect email or password.'});
+        return response.status(400).json({error:'Correo electrónico o contraseña incorrecto.'});
     } 
 
-    if (!userExist.verified) {
-        return response.status(400).json({error:"The email has not been verified"});
-    }
+    // const isCorrect = await User.compare(password, userExist.password);
 
-    const isCorrect = await bcrypt.compare(password, userExist.passwordHash);
+    const isCorrect =  userExist.password === password;
     
     if (!isCorrect) {
-        return response.status(400).json({error:'Incorrect email or password.'});
+        return response.status(400).json({error:'Correo electrónico o contraseña incorrecto.'});
     }
 
     const userForToken = {
@@ -39,7 +37,8 @@ loginRouter.post('/', async (request, response) => {
    
     return response.status(200).json({
         userId: userExist.id,
-        accessToken: accessToken
+        accessToken: accessToken,
+        isAdmin: userExist.admin
     });
 });
 

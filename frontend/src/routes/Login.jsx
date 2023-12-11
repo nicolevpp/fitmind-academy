@@ -2,23 +2,45 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const data = new FormData(event.currentTarget);
+      const user = {
+        email: data.get('email'),
+        password: data.get('password'),
+      };
+      const response = await axios.post('/api/login', user);
+
+      const email = user.email;
+      const password = user.password;
+      const accessToken = response?.data?.accessToken;
+      const isAdmin = response?.data?.isAdmin;
+      const userId = response?.data?.userId;
+      setAuth({ email, password, isAdmin, accessToken, userId });
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(`${error.response.data.error.toString()}`);
+      console.log(error);
+    }
   };
 
   return (
@@ -84,17 +106,10 @@ export default function Login() {
             >
                INICIAR SESIÓN
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
+            <Grid container justifyContent="center">
+              <Link href="#" variant="body2">
                     Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {'Don\'t have an account? Sign Up'}
-                </Link>
-              </Grid>
+              </Link>
             </Grid>
           </Box>
         </Box>

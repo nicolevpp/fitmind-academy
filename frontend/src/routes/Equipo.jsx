@@ -48,8 +48,11 @@ export default function Contacts () {
     { field: 'password',
       headerName: 'Contraseña',
       flex: 1 },
-    { field: 'routines',
-      headerName: 'Rutinas',
+    // { field: 'routines',
+    //   headerName: 'Rutinas',
+    //   flex: 1 },
+    { field: 'admin',
+      headerName: 'Admin',
       flex: 1 },
   ];
 

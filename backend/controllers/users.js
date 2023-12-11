@@ -10,8 +10,6 @@ usersRouter.post('/', async (request, response) => {
 
  
   const { firstName, lastName, email, phone, address, password } = request.body;
-
-
     
   if (!firstName || !lastName || !email || !phone || !address || !password) {
       return response.status(400).json({error: 'All fields are required'});
@@ -361,5 +359,14 @@ usersRouter.get('/', async (request, response) => {
   const users = await User.find();
   return response.status(200).json(users);
 });
+
+usersRouter.get('/:id', async (request, response) => {
+
+    const userId = request.params.id
+    const user = await User.findById(userId)
+    return response.status(200).json(user);    
+  });
+
+
 
 module.exports = usersRouter;

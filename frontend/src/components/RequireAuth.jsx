@@ -1,25 +1,39 @@
 import { useLocation, Outlet, Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-const RequireAuth = ({ home }) => {
+const RequireAuth = () => {
   const { auth } = useAuth();
-  console.log('asfknaskfas');
   const location = useLocation();
-  console.log(auth?.userId);
-
+  // console.log(auth);
   return (
-    <>
-      {
-        home
-          ? auth?.userId
-            ? <Navigate to="/private" state={{ from: location }} replace />
-            : <Outlet />
-          : auth?.userId
-            ? <Outlet />
-            : <Navigate to="/" state={{ from: location }} replace />
-      }
-    </>
+    auth?.accessToken
+      ?
+      <Outlet/>
+      : <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 
 export default RequireAuth;
+
+
+
+// return (
+//   <>
+//     {
+//       home
+//         ? auth?.userId
+//           ? <Navigate to="/private" state={{ from: location }} replace />
+//           : <Outlet />
+//         : auth?.userId
+//           ? <Outlet />
+//           : <Navigate to="/login" state={{ from: location }} replace />
+//     }
+//   </>
+// );
+
+// version tutorial
+// return (
+//   auth?.email
+//     ? <Outlet/>
+//     : <Navigate to="/login" state={{ from: location }} replace />
+// );
