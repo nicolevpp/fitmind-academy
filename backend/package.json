@@ -21,8 +21,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=dev nodemon index.js",
-    "client": "cd.. && npm run dev --prefix ./frontend",
+    "dev": "cross-env NODE_ENV=production nodemon index.js",
+    "client": "cd.. && npm run dev --prefix ./app",
     "server": "nodemon index.js",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
