@@ -42,7 +42,6 @@ export default function SidebarSection(){
   const { auth } = useAuth();
   let isAdmin = auth.isAdmin;
 
-  console.log(user);
 
 
   useEffect( ()  => {
@@ -129,7 +128,7 @@ export default function SidebarSection(){
             </Box>
           )}
           {/* MENU ITEMS */}
-          <Box paddingLeft={isCollapsed ? undefined : '10%'}>
+          <Box paddingLeft={isCollapsed ? undefined : '10%'} paddingTop={isCollapsed ? undefined : '10%'}>
             <Item
               title="Dashboard"
               to="/"
@@ -137,11 +136,7 @@ export default function SidebarSection(){
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: '15px 0 5px 20px' }}
-            >Data</Typography>
+
             <Item
               title="Rutinas"
               to="/rutinas"
@@ -149,7 +144,7 @@ export default function SidebarSection(){
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {isAdmin? <><Item
               title="Gestionar equipo"
               to="/equipo"
               icon={<ContactsOutlinedIcon/>}
@@ -163,18 +158,13 @@ export default function SidebarSection(){
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: '15px 0 5px 20px' }}
-            >Pages</Typography>
             <Item
               title="Profile Form"
               to="/form"
               icon={<PersonOutlinedIcon/>}
               selected={selected}
               setSelected={setSelected}
-            />
+            /></> : undefined}
             <Item
               title="Calendar"
               to="/calendar"

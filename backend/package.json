@@ -12,6 +12,7 @@
     "nodemailer": "^6.9.7"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "tailwindcss": "^3.3.3"
   },
@@ -20,8 +21,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon index.js"
+    "dev": "cross-env NODE_ENV=dev nodemon index.js",
+    "client": "cd.. && npm run dev --prefix ./frontend",
+    "server": "nodemon index.js",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
   "author": "",
   "license": "ISC",

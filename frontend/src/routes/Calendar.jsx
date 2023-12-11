@@ -17,27 +17,27 @@ export default function Calendar(){
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  const handleDateClick = (selected) => {
-    const title = prompt('Por favor ingrese el nombre para la rutina');
-    const calendarApi = selected.view.calendar;
-    calendarApi.unselect();
+  // const handleDateClick = (selected) => {
+  //   const title = prompt('Por favor ingrese el nombre para la rutina');
+  //   const calendarApi = selected.view.calendar;
+  //   calendarApi.unselect();
 
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateSrt}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay
-      });
-    }
-  };
+  //   if (title) {
+  //     calendarApi.addEvent({
+  //       id: `${selected.dateSrt}-${title}`,
+  //       title,
+  //       start: selected.startStr,
+  //       end: selected.endStr,
+  //       allDay: selected.allDay
+  //     });
+  //   }
+  // };
 
-  const handleEventClick = (selected) => {
-    if (window.confirm(`Por favor confirme si desea eliminar el evento '${selected.event.title}'`)){
-      selected.event.remove();
-    }
-  };
+  // const handleEventClick = (selected) => {
+  //   if (window.confirm(`Por favor confirme si desea eliminar el evento '${selected.event.title}'`)){
+  //     selected.event.remove();
+  //   }
+  // };
 
   return (
 
@@ -98,8 +98,8 @@ export default function Calendar(){
                 selectable={true}
                 selectMirror={true}
                 dayMaxEvents={true}
-                select={handleDateClick}
-                eventClick={handleEventClick}
+                // select={handleDateClick}
+                // eventClick={handleEventClick}
                 eventsSet={(events) => setCurrentEvents(events)}
                 initialEvents={[
                   { id: '1234', title: 'All-day event', date: '2023-11-16' },

@@ -1,7 +1,9 @@
 import './index.css';
 import { Route, Routes } from 'react-router-dom';
 import PersistLogin from './components/PersistLogin';
-import RequireAuth from './components/requireAuth';
+import RequireAuth from './components/RequireAuth';
+import RequireAdmin from './components/RequireAdmin';
+
 
 // Routes
 // import Home from './routes/Home';
@@ -137,15 +139,17 @@ export default function App(){
 
           {/* Rutinas accesibles al iniciar sesión */}
           <Route element={<PersistLogin/>}>
-            <Route element={<RequireAuth  />}>
+            <Route element={<RequireAuth />}>
               <Route path="/" element={<Layout />}/>
               <Route path="rutinas" element={<Routines />} />
               <Route path="calendar" element={< Calendar/>} />
             </Route>
 
-            <Route element={<RequireAuth isAdmin={true} />}>
-              <Route path="rutinas/crear" element={<HomeExercises />} />
-              <Route path="form" element={<Form />} />
+            <Route element={<RequireAuth />}>
+              <Route element={<RequireAdmin />}>
+                <Route path="rutinas/crear" element={<HomeExercises />} />
+                <Route path="form" element={<Form />} />
+              </Route>
             </Route>
           </Route>
         </Routes>

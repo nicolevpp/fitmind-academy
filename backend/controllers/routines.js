@@ -40,4 +40,11 @@ routinesRouter.patch('/', async (request, response) => {
 
 });
 
+routinesRouter.get('/:id', async (request, response) => {
+
+  const routineId = request.params.id
+  const routine = await Routine.findById(routineId)
+  return response.status(200).json(routine);    
+});
+
 module.exports = routinesRouter;

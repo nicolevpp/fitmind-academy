@@ -38,10 +38,40 @@ export default function Routines(){
   };
 
   useEffect(() => {
-    axios.get('/api/routines').then((response) => {
-      setRoutines(response.data);
+    if (isAdmin) {
+      axios.get('/api/routines').then((response) => {
+        setRoutines(response.data);
+      });
+    } else {
+      const userId = auth.userId;
+      axios.get(`/api/users/${userId}`, userId ).then((response) => {
+        setUsers(response.data);
+      });
+    }
+
+  }, [auth.userId, isAdmin]);
+
+  if (users.routines) {
+
+    // users.routines.map((routine, i) =>
+    //   axios.get(`/api/routines/${routine}`, routine, i ). then ((response) => {
+    //     console.log(response.data);
+    //   })
+    // );
+    const promises = users.routines.map((routine) =>
+      axios.get(`/api/routines/${routine}`)
+    );
+
+    // Usar Promise.all para esperar a que todas las peticiones se completen
+    Promise.all(promises).then((responses) => {
+    // Crear un array con los datos de cada respuesta
+      const results = responses.map((response) => response.data);
+      setRoutines(results);
+    }).catch((error) => {
+      console.error('Error al realizar las peticiones: ', error);
     });
-  }, []);
+  }
+
 
   const handleUserSelection = (event) => {
     setUserToAssign(event.target.value);
@@ -53,6 +83,7 @@ export default function Routines(){
     });
     setOpenModal(true);
   };
+
 
   const handleCloseModal = () => setOpenModal(false);
 
@@ -84,16 +115,13 @@ export default function Routines(){
       <SidebarSection/>
       <Box m="20px" width="100%">
         <Topbar/>
-        <Box display="flex" justifyContent="space-between"  flexDirection="column">
-          {isAdmin? <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" px="2rem">
+        {isAdmin? <Box display="flex" justifyContent="space-between"  flexDirection="column">
+          <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" px="2rem">
             <Header  title="RUTINAS" subtitle="Gestionar y asignar rutinas"/>
             <Link to={'/rutinas/crear'}>
               <Button variant="contained" color="secondary" sx={{ height: '80%' }}>Crear nueva rutina</Button>
             </Link>
           </Box>
-            :   <Box display="flex" justifyContent="space-between">
-              <Header title="RUTINAS" subtitle="¡Es momento de ejercitarse! 💪"/>
-            </Box>}
           <Box display="flex" gap="1rem" flexDirection="column">
             {routines.map((routine, index) => {
               return (
@@ -186,7 +214,63 @@ export default function Routines(){
               );
             })}
           </Box>
-        </Box>
+        </Box> :
+          <Box>
+            <Box display="flex" justifyContent="space-between">
+              <Header title="RUTINAS" subtitle="¡Es momento de ejercitarse!"/>
+            </Box>
+            <Box display="flex" gap="1rem" flexDirection="column">
+              {routines.map((routine, index) => {
+                return (
+                  <Box
+                    onClick={() => {setRoutineToAssign(routine.id);}}
+                    key={index}
+                    display="flex"
+                    justifyContent="space-between"
+                    p="1rem"
+                    mx="3rem"
+                    borderRadius="0.3rem"
+                    sx={{ backgroundColor: colors.primary[400] }} >
+                    <div display="flex">
+                      <Typography color={colors.greenAccent[300]} variant="h4">{routine.name}</Typography>
+                      <Typography>{routine.description}</Typography>
+                    </div>
+                    <div>
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        aria-controls={open ? 'long-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                        id="long-menu"
+                        MenuListProps={{
+                          'aria-labelledby': 'long-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                      >
+                        <MenuItem
+                          onClick={handleOpenModal}>
+                        Asignar
+                        </MenuItem>
+                        <MenuItem>
+                        Eliminar
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  </Box>
+                );
+              })}
+            </Box>
+
+          </Box>
+        }
       </Box>
     </Box>
   );
