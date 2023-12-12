@@ -7,6 +7,11 @@ const mongoose = require('mongoose');
 const routineSchema = new mongoose.Schema({
     name: String,
     description: String,
+    completed: {
+        type: Boolean,
+        default: false
+      },
+    date: String,
     exercises: []
 });
 

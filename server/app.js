@@ -15,6 +15,7 @@ const { MONGO_URI } = require('./config');
 const refreshRouter = require('./controllers/refresh');
 const { userExtractor } = require('./middleware/auth');
 const routinesRouter = require('./controllers/routines');
+const expressStaticGzip = require('express-static-gzip');
 
 
 
@@ -31,19 +32,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-// Rutas de frontend
-
-// app.use('/', express.static(path.resolve('views', 'home')));
-// app.use('/styles', express.static(path.resolve('views', 'styles')));
-// app.use('/signup', express.static(path.resolve('views', 'signup')));
-// app.use('/login', express.static(path.resolve('views', 'login')));
-// app.use('/contacts', express.static(path.resolve('views', 'contacts')));
-// app.use('/components', express.static(path.resolve('views', 'components')));
-// app.use('/img', express.static(path.resolve('img')));
-// app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
-
-
-// app.use(morgan('tiny'));
 
 
 // Rutas de backend
@@ -55,6 +43,11 @@ app.use('/api/routines', routinesRouter);
 app.use('/api/logout', logoutRouter);
 // app.use('/api/contacts', userExtractor, contactsRouter);
 
+app.use(expressStaticGzip(path.join(__dirname, 'dist')));
+
+app.get('/*', function(request, response) {
+    response.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
 
 module.exports = app;
 

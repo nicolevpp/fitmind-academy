@@ -8,7 +8,7 @@ const server = http.createServer(app);
 // escucha cualquier request del frontend
 
 server.listen(3003, () => {
-    console.log('El servidor está corriendo');
+  console.log('El servidor está corriendo');
 });
 
 

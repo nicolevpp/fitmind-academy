@@ -5,6 +5,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-static-gzip": "^2.1.7",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.0",
@@ -21,7 +22,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=production nodemon index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon index.js",
     "client": "cd.. && npm run dev --prefix ./app",
     "server": "nodemon index.js",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
