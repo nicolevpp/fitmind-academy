@@ -4,15 +4,14 @@ import { Avatar, Box, IconButton, Typography, useTheme } from '@mui/material';
 import { tokens } from '../theme';
 import { Link } from 'react-router-dom';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
+import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -102,7 +101,7 @@ export default function SidebarSection(){
                 ml="15px"
               >
 
-                <Typography variant="h3" fontWeight="bold" color={colors.grey[100]}>
+                <Typography variant="h3" fontWeight="bold" color={colors.redAccent[400]}>
                       FITMIND <FitnessCenterIcon/>
                 </Typography>
 
@@ -140,7 +139,7 @@ export default function SidebarSection(){
             <Item
               title="Rutinas"
               to="/rutinas"
-              icon={<PeopleOutlinedIcon/>}
+              icon={<SportsGymnasticsIcon/>}
               selected={selected}
               setSelected={setSelected}
             />
@@ -152,21 +151,14 @@ export default function SidebarSection(){
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon/>}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Profile Form"
+              title="Invitar usuario"
               to="/form"
               icon={<PersonOutlinedIcon/>}
               selected={selected}
               setSelected={setSelected}
             /></> : undefined}
             <Item
-              title="Calendar"
+              title="Calendario"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon/>}
               selected={selected}

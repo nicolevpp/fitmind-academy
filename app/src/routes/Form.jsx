@@ -1,4 +1,4 @@
-import { Box, Button, Snackbar, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import Topbar from '../components/Topbar';
 import SidebarSection from '../components/SidebarSection';
 import Header from '../components/Header';
@@ -7,8 +7,7 @@ import * as yup from 'yup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { validPhone, validPassword } from '../Regex';
 import axios from 'axios';
-import { useState } from 'react';
-import Alert from '@mui/material/Alert';
+import toast from 'react-hot-toast';
 
 
 const initialValues = {
@@ -36,17 +35,6 @@ export default function Form(){
 
   const isNonMobile = useMediaQuery('(min-width:600px)');
 
-  const [alert, setAlert] = useState(false);
-  const [alertContent, setAlertContent] = useState('');
-  const [isSuccess, setIsSuccess] = useState('');
-
-  const handleClose = (reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setAlert(false);
-  };
 
   async function handleFormSubmit (values, { resetForm }) {
 
@@ -56,18 +44,14 @@ export default function Form(){
       .then((response) => {
         // console.log(response.data)
 
-        setAlertContent(response.data);
-        setAlert(true);
-        setIsSuccess(true);
-
+        toast.success('Usuario creado con éxto');
+        console.log(response);
         resetForm();
 
       })
       .catch((error) => {
-        // console.log(error.response.data.error);
-        setAlertContent(error.response.data.error);
-        setAlert(true);
-        setIsSuccess(false);
+        console.log(error.response.data.error);
+        toast.error(`${error.response.data.error.toString()}`);
       });
 
     console.log(alert);
@@ -81,12 +65,6 @@ export default function Form(){
         <Topbar/>
         <Box display="flex" justifyContent="space-between"  flexDirection="column">
           <Header  title="CREAR USUARIO" subtitle="Crear un nuevo perfil de usuario"/>
-          {alert ?
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-              <Alert onClose={handleClose} severity={isSuccess ? 'success' : 'warning'} sx={{ width: '100%' }}>
-                {alertContent}
-              </Alert>
-            </Snackbar> : <></> }
           <Formik
             onSubmit={handleFormSubmit}
             initialValues={initialValues}

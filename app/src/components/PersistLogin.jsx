@@ -2,6 +2,8 @@ import { Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useRefreshToken from '../hooks/useRefreshToken';
 import useAuth from '../hooks/useAuth';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const PersistLogin = () => {
   // States
@@ -25,15 +27,16 @@ const PersistLogin = () => {
     accessToken ? verifyRefreshToken() : setIsloading(false);
   }, [accessToken, refresh]);
 
+
   // Component
   return (
     <>
       {isLoading
         ?
         <div>
-          <p>Cargando</p>
+          <CircularProgress color="secondary" sx={{ position: 'absolute', top: '50%', left: '50%' }} />
         </div>
-        : <Outlet />
+        : <Outlet/>
       }
     </>
   );

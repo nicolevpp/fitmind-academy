@@ -14,13 +14,13 @@ import Login from './routes/Login';
 
 // Scenes
 // import Dashboard from './routes/Dashboard';
-// import Invoices from './routes/Invoices';
-// import Contacts from './routes/Equipo';
+import Contacts from './routes/Equipo';
 import Form from './routes/Form';
 import Calendar from './routes/Calendar';
 import Routines from './routes/homeExercesises/Routines';
 import Layout from './components/Layout';
 import Unauthorized from './components/Unauthorized';
+import Missing from './components/Missing';
 
 
 
@@ -149,9 +149,13 @@ export default function App(){
               <Route element={<RequireAdmin />}>
                 <Route path="rutinas/crear" element={<HomeExercises />} />
                 <Route path="form" element={<Form />} />
+                <Route path="equipo" element={<Contacts />} />
               </Route>
             </Route>
           </Route>
+
+          {/* catch all */}
+          <Route path="*" element={<Missing />} />
         </Routes>
       </ThemeProvider>
     </ColorModeContext.Provider>

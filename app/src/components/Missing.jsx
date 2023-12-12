@@ -29,7 +29,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
       <Link color="inherit" href="/">
-      Fitmind Academy
+        Fitmind Academy
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -39,7 +39,7 @@ function Copyright() {
 
 
 
-export default function StickyFooter() {
+export default function Missing() {
 
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
@@ -54,10 +54,10 @@ export default function StickyFooter() {
       <CssBaseline />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Typography variant="h2" component="h1" gutterBottom>
-            ¡Oh no! Parece que no tienes los permisos para acceder. ⚠️
+            ¡Oh no! Página no encontrada. ⚠️
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          {'La página que has solicitado no puede mostrarse en este momento.'}
+          {'La página que ha solicitado generó un error 404: Not Found.'}
         </Typography>
         <Button color="secondary" variant="contained" onClick={goBack}>Ir atrás</Button>
       </Container>

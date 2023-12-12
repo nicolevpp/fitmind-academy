@@ -17,27 +17,6 @@ export default function Calendar(){
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  // const handleDateClick = (selected) => {
-  //   const title = prompt('Por favor ingrese el nombre para la rutina');
-  //   const calendarApi = selected.view.calendar;
-  //   calendarApi.unselect();
-
-  //   if (title) {
-  //     calendarApi.addEvent({
-  //       id: `${selected.dateSrt}-${title}`,
-  //       title,
-  //       start: selected.startStr,
-  //       end: selected.endStr,
-  //       allDay: selected.allDay
-  //     });
-  //   }
-  // };
-
-  // const handleEventClick = (selected) => {
-  //   if (window.confirm(`Por favor confirme si desea eliminar el evento '${selected.event.title}'`)){
-  //     selected.event.remove();
-  //   }
-  // };
 
   return (
 
