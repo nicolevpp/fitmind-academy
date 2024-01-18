@@ -3,19 +3,20 @@ import Topbar from '../components/Topbar';
 import SidebarSection from '../components/SidebarSection';
 import Header from '../components/Header';
 import { tokens } from '../theme';
-import { mockTransactions } from '../data/mockData';
+// import { mockTransactions } from '../data/mockData';
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import TrafficIcon from '@mui/icons-material/Traffic';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 
 // Charts
 import LineChart from '../components/LineChart';
 import StatBox from '../components/StatBox';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
-// import BarChart from '../../components/BarChart'
-// import ProgressCircle from '../../components/ProgressCircle'
+
+
 
 
 
@@ -23,6 +24,26 @@ import StatBox from '../components/StatBox';
 
 
 export default function Dashboard(){
+
+  const [users, setUsers] = useState([]);
+  const [routines, setRoutines] = useState([]);
+  const { auth } = useAuth();
+  let isAdmin = auth.isAdmin;
+
+
+  useEffect(() => {
+
+    axios.get('/api/routines').then((response) => {
+      setRoutines(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+
+    axios.get('/api/users').then((response) => {
+      setUsers(response.data);    });
+  }, []);
+
 
 
   const theme = useTheme();
@@ -43,10 +64,10 @@ export default function Dashboard(){
           {/* GRID & CHARTS */}
           <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gridAutoRows="140px" gap="20px">
             {/* ROW 1 */}
-            <Box gridColumn="span 3" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
+            <Box gridColumn={isAdmin? 'span 6' : 'span 10'} backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
               <StatBox
-                title="15"
-                subtitle="Rutinas completadas"
+                title={routines.length}
+                subtitle="Rutinas"
                 increase="+14%"
                 icon={
                   <AccessibilityNewIcon
@@ -54,22 +75,10 @@ export default function Dashboard(){
                 }
               />
             </Box>
-            <Box gridColumn="span 3" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
+            {isAdmin?  <Box gridColumn="span 6" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
               <StatBox
-                title="20"
-                subtitle="Planes comprados"
-                progress="0.5"
-                increase="+21%"
-                icon={
-                  <PointOfSaleIcon
-                    sx={{ color: colors.greenAccent[600], fontSize: '26px' }}/>
-                }
-              />
-            </Box>
-            <Box gridColumn="span 3" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
-              <StatBox
-                title="20"
-                subtitle="Clientes nuevos"
+                title={users.length}
+                subtitle="Clientes actuales"
 
                 increase="+5%"
                 icon={
@@ -77,19 +86,7 @@ export default function Dashboard(){
                     sx={{ color: colors.greenAccent[600], fontSize: '26px' }}/>
                 }
               />
-            </Box>
-            <Box gridColumn="span 3" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center">
-              <StatBox
-                title="2,342,234"
-                subtitle="Trafico"
-                progress="0.80"
-                increase="+43%"
-                icon={
-                  <TrafficIcon
-                    sx={{ color: colors.greenAccent[600], fontSize: '26px' }}/>
-                }
-              />
-            </Box>
+            </Box> : undefined}
 
             {/* ROW 2 */}
             <Box
@@ -128,35 +125,65 @@ export default function Dashboard(){
                 <LineChart isDashboard={true}/>
               </Box>
             </Box>
-            {/* TRANSACTIONS */}
-            <Box gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]} overflow="auto">
+            {isAdmin ? <Box id="info" gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]} overflow="auto">
               <Box display="flex" justifyContent="space-between" alignItems="center" borderBottom={`4px solid ${colors.primary[500]}`} colors={colors.grey[100]} p="15px">
                 <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-                                        Clientes
+                                      Clientes
                 </Typography>
               </Box>
-              {mockTransactions.map((transaction, i) => {
-                <Box
-                  key={`${transaction.txId}-${i}`}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`4px solid ${colors.primary[500]}`}
-                  p="15px"
-                >
-                  <Box>
-                    <Typography color={colors.greenAccent[500]} variant="h5" fontWeight="600">
-                      {transaction.txId}
-                    </Typography>
-                    <Typography color={colors.grey[100]}>
-                      {transaction.user}
-                    </Typography>
-                  </Box>
-                  <Box color={colors.grey[100]}>{transaction.date}</Box>
-                  <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">{transaction.cost}</Box>
-                </Box>;
-              })}
-            </Box>
+              <Box>
+                {users.map((user, i) => {
+                  return (
+                    <Box
+                      key={i}
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      p="15px"
+                    >
+                      <Box>
+                        <Typography color={colors.greenAccent[500]} variant="h5" fontWeight="600">
+                          {user.firstName}
+                        </Typography>
+                        <Typography color={colors.grey[100]}>
+                          {user.lastName}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  );
+                })}
+
+              </Box>
+            </Box> : <Box id="info" gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]} overflow="auto">
+              <Box display="flex" justifyContent="space-between" alignItems="center" borderBottom={`4px solid ${colors.primary[500]}`} colors={colors.grey[100]} p="15px">
+                <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+                                      Rutinas
+                </Typography>
+              </Box>
+              <Box>
+                {routines.map((routine, i) => {
+                  return (
+                    <Box
+                      key={i}
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      p="15px"
+                    >
+                      <Box>
+                        <Typography color={colors.greenAccent[500]} variant="h5" fontWeight="600">
+                          {routine.name}
+                        </Typography>
+                        <Typography color={colors.grey[100]}>
+                          {routine.target}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  );
+                })}
+
+              </Box>
+            </Box>}
 
           </Box>
         </Box>
